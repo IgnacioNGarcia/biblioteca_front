@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Drawer, List, ListItem, ListItemIcon, ListItemText, AppBar, Toolbar, Typography, IconButton } from '@mui/material';
+import { Box, Drawer, List, ListItem, ListItemIcon, ListItemText, AppBar, Toolbar, Typography, IconButton, ListItemButton } from '@mui/material';
 import { 
   LibraryBooks as LibraryIcon,
   People as PeopleIcon,
@@ -102,37 +102,28 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <Box sx={{ overflow: 'auto' }}>
             <List>
               {menuItems.map((item) => (
-                <ListItem 
-                  button 
+                <ListItem
                   key={item.text}
-                  onClick={() => router.push(item.path)}
-                  selected={router.pathname === item.path}
-                  sx={{
-                    '&.Mui-selected': {
-                      backgroundColor: (theme) => theme.palette.action.selected,
-                      '&:hover': {
-                        backgroundColor: (theme) => theme.palette.action.hover,
-                      },
-                    },
-                    mb: 1,
-                    mx: 1,
-                    borderRadius: 1,
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
-                  }}
+                  disablePadding
                 >
-                  <ListItemIcon 
-                    sx={{ 
-                      color: 'primary.main',
-                      minWidth: 0,
-                      mr: open ? 3 : 'auto',
-                      justifyContent: 'center',
+                  <ListItemButton
+                    onClick={() => router.push(item.path)}
+                    selected={router.pathname === item.path}
+                    sx={{
+                      '&.Mui-selected': {
+                        backgroundColor: (theme) => theme.palette.action.selected,
+                        '&:hover': {
+                          backgroundColor: (theme) => theme.palette.action.hover,
+                        },
+                      },
+                      px: 2,
                     }}
                   >
-                    {item.icon}
-                  </ListItemIcon>
-                  {open && <ListItemText primary={item.text} />}
+                    <ListItemIcon>
+                      {item.icon}
+                    </ListItemIcon>
+                    <ListItemText primary={item.text} />
+                  </ListItemButton>
                 </ListItem>
               ))}
             </List>
