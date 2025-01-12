@@ -17,11 +17,20 @@ import {
   MenuItem,
   TablePagination,
   Card,
+  Chip,
+  Dialog,
+  DialogTitle,
+  DialogActions,
   CardContent,
 } from '@mui/material';
 import { useRouter } from 'next/router';
-import { prestamosMock, librosMock, sociosMock } from '../../utils/mockData';
+import { prestamosMock, librosMock, sociosMock, Libro, Prestamo } from '../../utils/mockData';
 import { useState } from 'react';
+
+import dynamic from "next/dynamic";
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
+import checkAnimation from "../../assets/animations/check-animation.json";
+
 
 export default function PrestamosPage() {
   const router = useRouter();
@@ -32,13 +41,35 @@ export default function PrestamosPage() {
   });
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [libroDevuelto, setLibroDevuelto] = useState<Libro | null>(null);
+  const [prestamos, setPrestamos] = useState<Prestamo[]>(prestamosMock);
+  const [openDevolucionDialog, setOpenDevolucionDialog] = React.useState(false);
+
 
   const devolverLibro = (id: number) => {
     console.log(`Devolviendo libro con ID: ${(id)}`);
+    const prestamo = prestamosMock.find(p => p.id === id);
+    if (prestamo) {
+      const libro = librosMock.find(l => l.id === prestamo.libroId);
+      setLibroDevuelto(libro || null);
+      setPrestamos(prestamosActuales => 
+        prestamosActuales.map(p => 
+          p.id === id 
+          ? { ...p, estado: 'Devuelto', fechaDevolucionReal: new Date() } 
+          : p
+        )
+      );
+      setOpenDevolucionDialog(true);
+    }
+  };
+
+  const handleCloseDevolucion = () => {
+    setOpenDevolucionDialog(false);
+    setLibroDevuelto(null);
   };
 
   const prestamosFiltrados = React.useMemo(() => {
-    return prestamosMock.filter(prestamo => {
+    return prestamos.filter(prestamo => {
       const libro = librosMock.find(l => l.id === prestamo.libroId);
       const socio = sociosMock.find(s => s.id === prestamo.socioId);
       return (
@@ -47,7 +78,7 @@ export default function PrestamosPage() {
         (!filtros.estado || filtros.estado === 'Todos' || prestamo.estado === filtros.estado)
       );
     });
-  }, [filtros]);
+  }, [filtros, prestamos]);
 
   const prestamosPaginados = React.useMemo(() => {
     return prestamosFiltrados.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
@@ -66,6 +97,7 @@ export default function PrestamosPage() {
     setPage(0);
   }, [filtros]);
 
+  
   return (
     <Box>
       <Typography variant="h3" sx={{ mb: 4, color: 'text.primary' }} align="center">
@@ -189,13 +221,33 @@ export default function PrestamosPage() {
                       : '-'
                     }
                   </TableCell>
-                  <TableCell>{prestamo.estado}</TableCell>
+                  <TableCell>
+                    <Chip 
+                      label={prestamo.estado || '-'}
+                      color={prestamo.estado === 'Devuelto' ? 'success' : 
+                             prestamo.estado === 'Atrasado' ? 'error' : 
+                             prestamo.estado === 'Pendiente' ? 'warning' : 'default'}
+                              size="small"
+                              sx={{ 
+                                '& .MuiChip-label': {
+                                  px: 1,
+                                  py: 0.25,
+                                  fontSize: '0.75rem'
+                                },
+                                height: '24px',
+                                minWidth: '80px'
+                              }}
+                    />
+                  </TableCell>
                   <TableCell align="center">
-                    {prestamo.estado === 'Pendiente' && (
+                    {(prestamo.estado === 'Pendiente' || prestamo.estado === 'Atrasado') && (
                       <Button 
                         variant="outlined"
                         size="small"
-                        onClick={() => devolverLibro(prestamo.id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          devolverLibro(prestamo.id);
+                        }}
                       >
                         Devolver
                       </Button>
@@ -219,6 +271,64 @@ export default function PrestamosPage() {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+
+<Dialog
+        open={openDevolucionDialog}
+        onClose={handleCloseDevolucion}
+        PaperProps={{
+          sx: {
+            borderRadius: 2,
+            p: 2,
+            minWidth: "300px",
+          },
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            pt: 2,
+          }}
+        >
+          <Box sx={{ width: 150, height: 150 }}>
+            <Lottie
+              animationData={checkAnimation}
+              loop={false}
+              autoplay={true}
+            />
+          </Box>
+        </Box>
+        <DialogTitle
+          sx={{
+            textAlign: "center",
+            pt: 1,
+            pb: 3,
+          }}
+        >
+          ¡Libro devuelto exitosamente!
+          <Typography variant="body1" sx={{ mt: 1, color: "text.secondary" }}>
+            {libroDevuelto?.titulo}
+          </Typography>
+        </DialogTitle>
+        <DialogActions
+          sx={{
+            justifyContent: "center",
+            pb: 3,
+          }}
+        >
+          <Button
+            variant="contained"
+            onClick={handleCloseDevolucion}
+            autoFocus
+            sx={{
+              minWidth: "120px",
+            }}
+          >
+            Continuar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }
