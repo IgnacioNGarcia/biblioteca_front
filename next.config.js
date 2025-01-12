@@ -4,8 +4,7 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  swcMinify: true,
-  compiler: {
+    compiler: {
     emotion: true
   }
 }
