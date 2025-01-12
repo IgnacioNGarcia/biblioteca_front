@@ -7,6 +7,7 @@ export interface Libro {
   disponible: boolean;
   descripcion: string;
   isbn: number;
+  genero: string;
 }
 
 export interface Socio {
@@ -56,7 +57,8 @@ export const librosMock: Libro[] = [
       editorial: "Sudamericana",
       disponible: true,
       descripcion: "Una saga familiar en Macondo que abarca varias generaciones.",
-      isbn: 9780060114183
+      isbn: 9780060114183,
+      genero: "Novela"
     },
     {
       id: 2,
@@ -66,7 +68,8 @@ export const librosMock: Libro[] = [
       editorial: "Losada",
       disponible: true,
       descripcion: "Colección de cuentos que exploran temas como el infinito y la eternidad.",
-      isbn: 9788420692128
+      isbn: 9788420692128,
+      genero: "Literatura Clásica"
     },
     {
       id: 3,
@@ -76,7 +79,8 @@ export const librosMock: Libro[] = [
       editorial: "Francisco de Robles",
       disponible: false,
       descripcion: "Una de las mayores obras de la literatura universal.",
-      isbn: 9780744525021
+      isbn: 9780744525021,
+      genero: "Literatura Clásica"
     },
     {
       id: 4,
@@ -86,7 +90,8 @@ export const librosMock: Libro[] = [
       editorial: "Secker & Warburg",
       disponible: true,
       descripcion: "Una distopía que reflexiona sobre la vigilancia y la opresión.",
-      isbn: 9780744525021 //Random
+      isbn: 9780744525021,
+      genero: "Terror"
     },
     {
       id: 5,
@@ -96,7 +101,8 @@ export const librosMock: Libro[] = [
       editorial: "The Russian Messenger",
       disponible: true,
       descripcion: "Un drama psicológico sobre la moralidad y el arrepentimiento.",
-      isbn: 9780744525021 //Random
+        isbn: 9780744525021,
+      genero: "Drama"
     },
     {
       id: 6,
@@ -106,7 +112,8 @@ export const librosMock: Libro[] = [
       editorial: "T. Egerton",
       disponible: false,
       descripcion: "Una comedia romántica que satiriza la sociedad inglesa del siglo XIX.",
-      isbn: 9780744525021 //Random
+      isbn: 9780744525021,
+      genero: "Novela"
     },
     {
       id: 7,
@@ -116,7 +123,8 @@ export const librosMock: Libro[] = [
       editorial: "Sylvia Beach",
       disponible: true,
       descripcion: "Un relato experimental que narra un día en la vida de Leopold Bloom.",
-      isbn: 9780744525021 //Random
+      isbn: 9780744525021,
+      genero: "Ciencia Ficción"
     },
     {
       id: 8,
@@ -126,7 +134,8 @@ export const librosMock: Libro[] = [
       editorial: "Allen & Unwin",
       disponible: true,
       descripcion: "Una épica fantasía sobre la lucha entre el bien y el mal.",
-      isbn: 9780744525021 //Random
+      isbn: 9780744525021,
+      genero: "Fantasía"
     },
     {
       id: 9,
@@ -136,7 +145,8 @@ export const librosMock: Libro[] = [
       editorial: "J.B. Lippincott & Co.",
       disponible: false,
       descripcion: "Una novela que aborda el racismo y la justicia en el sur de Estados Unidos.",
-      isbn: 9780744525021 //Random
+      isbn: 9780744525021,
+      genero: "Novela"
     },
     {
       id: 10,
@@ -146,7 +156,8 @@ export const librosMock: Libro[] = [
       editorial: "Gallimard",
       disponible: true,
       descripcion: "Una exploración del existencialismo a través de la vida de Meursault.",
-      isbn: 9780744525021 //Random
+      isbn: 9780744525021,
+      genero: "Filosofía"
     },
     {
       id: 11,
@@ -156,7 +167,8 @@ export const librosMock: Libro[] = [
       editorial: "Ballantine Books",
       disponible: true,
       descripcion: "Una distopía sobre una sociedad donde los libros están prohibidos.",
-      isbn: 9780744525021 //Random
+      isbn: 9780744525021,
+      genero: "Ciencia Ficción"
     },
     {
       id: 12,
@@ -166,7 +178,8 @@ export const librosMock: Libro[] = [
       editorial: "Kurt Wolff",
       disponible: true,
       descripcion: "La historia de un hombre que se convierte en un insecto gigante.",
-      isbn: 9780744525021 //Random
+      isbn: 9780744525021,
+      genero: "Ciencia Ficción"
     },
     {
       id: 13,
@@ -176,7 +189,8 @@ export const librosMock: Libro[] = [
       editorial: "Charles Scribner's Sons",
       disponible: false,
       descripcion: "Un retrato de la era del jazz y la lucha por el sueño americano.",
-      isbn: 9780744525021 //Random
+      isbn: 9780744525021,
+      genero: "Literatura Clásica"
     },
     {
       id: 14,
@@ -186,7 +200,8 @@ export const librosMock: Libro[] = [
       editorial: "Grasset",
       disponible: true,
       descripcion: "Una extensa obra que reflexiona sobre la memoria y el tiempo.",
-      isbn: 9780744525021 //Random
+      isbn: 9780744525021,
+      genero: "Literatura Clásica"
     },
     {
       id: 15,
@@ -196,7 +211,8 @@ export const librosMock: Libro[] = [
       editorial: "Allen & Unwin",
       disponible: true,
       descripcion: "Las aventuras de Bilbo Bolsón en la Tierra Media.",
-      isbn: 9780744525021 //Random
+      isbn: 9780744525021,
+      genero: "Fantasía"
     },
     {
       id: 16,
@@ -206,7 +222,8 @@ export const librosMock: Libro[] = [
       editorial: "N/A",
       disponible: true,
       descripcion: "Una tragedia que explora la venganza, la traición y la locura.",
-      isbn: 9780744525021 //Random
+      isbn: 9780744525021,
+      genero: "Drama"
     },
     {
       id: 17,
@@ -216,7 +233,8 @@ export const librosMock: Libro[] = [
       editorial: "N/A",
       disponible: false,
       descripcion: "Un poema épico que describe un viaje por el infierno, el purgatorio y el paraíso.",
-      isbn: 9780744525021 //Random
+      isbn: 9780744525021,
+      genero: "Literatura Clásica"
     },
     {
       id: 18,
@@ -226,7 +244,8 @@ export const librosMock: Libro[] = [
       editorial: "Reynal & Hitchcock",
       disponible: true,
       descripcion: "Una historia poética sobre la vida y las relaciones humanas.",
-      isbn: 9780744525021 //Random
+      isbn: 9780744525021,
+      genero: "Literatura Clásica"
     },
     {
       id: 19,
@@ -236,7 +255,8 @@ export const librosMock: Libro[] = [
       editorial: "N/A",
       disponible: true,
       descripcion: "Las aventuras de Odiseo en su regreso a Ítaca.",
-      isbn: 9780744525021 //Random
+      isbn: 9780744525021,
+      genero: "Literatura Clásica"
     },
     {
       id: 20,
@@ -246,7 +266,8 @@ export const librosMock: Libro[] = [
       editorial: "Revue de Paris",
       disponible: false,
       descripcion: "La historia de una mujer atrapada en un matrimonio insatisfactorio.",
-      isbn: 9780744525021 //Random
+      isbn: 9780744525021,
+      genero: "Novela"
     }
 ];
 
@@ -465,3 +486,19 @@ export const Meses : {[key:string]:string} = {
   "11": "Noviembre",
   "12": "Diciembre"
 } 
+
+export const generos = [
+  'Poesía',
+  'Ciencia Ficción',
+  'Fantasía',
+  'Historia',
+  'Biografía',
+  'Ensayo',
+  'Infantil',
+  'Juvenil',
+  'Literatura Clásica',
+  'Drama',
+  'Novela',
+  'Terror'
+  // Agrega más géneros según necesites
+];

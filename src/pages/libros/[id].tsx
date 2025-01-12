@@ -23,6 +23,7 @@ interface Libro {
   disponible: boolean;
   descripcion: string;
   isbn: number;
+  genero: string;
 }
 
 // Interfaces para la respuesta de Google Books
@@ -178,6 +179,13 @@ export default function DetalleLibro() {
             />
             <TextField
               fullWidth
+              label="Género"
+              value={libro.genero}
+              onChange={(e) => setLibro({...libro, genero: e.target.value})}
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              fullWidth
               label="ISBN"
               value={libro.isbn}
               onChange={(e) => setLibro({...libro, isbn: Number(e.target.value)})}
@@ -202,6 +210,7 @@ export default function DetalleLibro() {
             <Typography><strong>Autor:</strong> {libro.autor}</Typography>
             <Typography><strong>Año:</strong> {libro.año}</Typography>
             <Typography><strong>Editorial:</strong> {libro.editorial}</Typography>
+            <Typography><strong>Género:</strong> {libro.genero}</Typography>
             <Typography><strong>ISBN:</strong> {libro.isbn}</Typography>
             <Typography><strong>Estado:</strong> {libro.disponible ? 'Disponible' : 'Prestado'}</Typography>
           </>

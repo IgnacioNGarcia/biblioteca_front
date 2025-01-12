@@ -18,11 +18,14 @@ import {
   FormControl,
   InputLabel,
   Select,
-  MenuItem
+  MenuItem,
+  Autocomplete
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import { librosMock } from '../../utils/mockData';
 import { useState } from 'react';
+import { generos } from '../../utils/mockData';
+
 
 export default function LibrosPage() {
   const router = useRouter();
@@ -31,10 +34,11 @@ export default function LibrosPage() {
     autor: '',
     año: '',
     estado: '',
+    genero: ''
   });
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+  const [generoValue, setGeneroValue] = React.useState('');
 
   const librosFiltrados = React.useMemo(() => {
     return librosMock.filter(libro => {
@@ -42,7 +46,8 @@ export default function LibrosPage() {
         libro.titulo.toLowerCase().includes(filtros.titulo.toLowerCase()) &&
         libro.autor.toLowerCase().includes(filtros.autor.toLowerCase()) &&
         (filtros.año === '' || libro.año.toString().includes(filtros.año)) &&
-        (filtros.estado === '' ||filtros.estado === 'Todos' || libro.disponible === (filtros.estado === 'Disponible'))
+        (filtros.estado === '' ||filtros.estado === 'Todos' || libro.disponible === (filtros.estado === 'Disponible')) &&
+        (filtros.genero === '' || libro.genero.toLowerCase().includes(filtros.genero.toLowerCase()))
       );
     });
   }, [filtros]);
@@ -108,6 +113,22 @@ export default function LibrosPage() {
                 onChange={(e) => setFiltros({...filtros, año: e.target.value})}
                 sx={{ minWidth: 200 }}
               />
+              <Autocomplete
+                size="small"
+                options={generos}
+                value={filtros.genero}
+                onChange={(_, newValue) => setFiltros({...filtros, genero: newValue || ''})}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Género"
+                    variant="outlined"
+                    sx={{ minWidth: 200 }}
+                  />
+                )}
+                freeSolo
+                autoSelect
+              />
               <FormControl size="small">
                 <InputLabel id="estado-label">Estado</InputLabel>
                 <Select
@@ -164,6 +185,7 @@ export default function LibrosPage() {
               <TableCell>Autor</TableCell>
               <TableCell>Año</TableCell>
               <TableCell>Editorial</TableCell>
+              <TableCell>Género</TableCell>
               <TableCell>Estado</TableCell>
             </TableRow>
           </TableHead>
@@ -180,6 +202,7 @@ export default function LibrosPage() {
                 <TableCell>{libro.autor}</TableCell>
                 <TableCell>{libro.año}</TableCell>
                 <TableCell>{libro.editorial}</TableCell>
+                <TableCell>{libro.genero}</TableCell>
                 <TableCell>{libro.disponible ? 'Disponible' : 'Prestado'}</TableCell>
               </TableRow>
             ))}

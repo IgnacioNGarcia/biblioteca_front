@@ -175,6 +175,12 @@ export default function DetallePrestamo() {
               </Typography>
               <Typography variant="body1">{libro.editorial}</Typography>
             </Box>
+            <Box>
+              <Typography variant="subtitle1" color="text.secondary">
+                Género
+              </Typography>
+              <Typography variant="body1">{libro.genero}</Typography>
+            </Box>
           </Paper>
         </Grid>
 
