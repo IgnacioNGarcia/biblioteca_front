@@ -116,13 +116,21 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                           backgroundColor: (theme) => theme.palette.action.hover,
                         },
                       },
-                      px: 2,
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
                     }}
                   >
-                    <ListItemIcon>
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                      }}
+                    >
                       {item.icon}
                     </ListItemIcon>
-                    <ListItemText primary={item.text} />
+                    {open && <ListItemText primary={item.text} />}
                   </ListItemButton>
                 </ListItem>
               ))}
